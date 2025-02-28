@@ -47,11 +47,13 @@ streamlit.set_page_config(
     page_title = "UK Online Retail Customer Dashboard"
 )
 
-DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
-OnlineRetailDF = pd.read_csv(DATA_FILENAME)
+# DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
+# OnlineRetailDF = pd.read_csv(DATA_FILENAME)
+OnlineRetailDF = pd.read_csv("Online Retail.csv")
 
 streamlit.title("UK-Based Online Retail Customer Dashboard")
 streamlit.write("Note: the sliders and the graphics use the standardized Recency, Frequency, and Monetary data.")
+streamlit.write("Note: Cluster label -1 of DBSCAN and OPTICS clustering algorithm indicates outliers.")
 
 # OnlineRetailDF.isnull().sum()
 
@@ -198,7 +200,7 @@ scaled_RFM_Clusters_DF = scaled_X_DF.copy()
 # plt.title("Elbow Method for k clusters")
 # plt.show()
 
-kmeans = KMeans(init = "k-means++", n_clusters = 5, n_init = 10, max_iter = 1, random_state = 0).fit(X)
+kmeans = KMeans(init = "k-means++", n_clusters = 5, n_init = 10, max_iter = 300, random_state = 0).fit(X)
 
 kmeans_centroids = kmeans.cluster_centers_
 # kmeans_centroids
@@ -527,12 +529,14 @@ from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.slider(
     "Which K-Means Cluster are you interested in?",
     min_value = scaled_RFM_Clusters_DF["K-Means Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["K-Means Cluster"].max(),
-    value = [scaled_RFM_Clusters_DF["K-Means Cluster"].min(), scaled_RFM_Clusters_DF["K-Means Cluster"].max()])
+    value = [scaled_RFM_Clusters_DF["K-Means Cluster"].min(), scaled_RFM_Clusters_DF["K-Means Cluster"].max()],
+    key = "kmeans_cluster_label_slider"
+    )
 
 filtered_kmeans_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["K-Means Cluster"] <= to_last_kmeans_cluster) & (from_first_kmeans_cluster <= scaled_RFM_Clusters_DF["K-Means Cluster"])]
 
 scaled_recency_range1 = streamlit.slider(
-        "Which value of Recency in days since the last purchase date are you interested in?",
+        "Which standardized value of Recency in days since December 9th, 2011 as the last purchase date are you interested in?",
         min_value = float(filtered_kmeans_cluster_df["Recency"].min()),
         max_value = float(filtered_kmeans_cluster_df["Recency"].max()),
         value = (float(filtered_kmeans_cluster_df["Recency"].min()), float(filtered_kmeans_cluster_df["Recency"].max())), 
@@ -540,7 +544,7 @@ scaled_recency_range1 = streamlit.slider(
     )
 
 scaled_frequency_range1 = streamlit.slider(
-        "Which value of frequency in times of purchase are you interested in?",
+        "Which standardized value of Frequency in times of purchase are you interested in?",
         min_value = float(filtered_kmeans_cluster_df["Frequency"].min()),
         max_value = float(filtered_kmeans_cluster_df["Frequency"].max()),
         value = (float(filtered_kmeans_cluster_df["Frequency"].min()), float(filtered_kmeans_cluster_df["Frequency"].max())), 
@@ -548,7 +552,7 @@ scaled_frequency_range1 = streamlit.slider(
     )
 
 scaled_monetary_range1 = streamlit.slider(
-        "Which value of monetary in sterling are you interested in?",
+        "Which standardized value of Monetary in sterling are you interested in?",
         min_value = float(filtered_kmeans_cluster_df["Monetary"].min()),
         max_value = float(filtered_kmeans_cluster_df["Monetary"].max()),
         value = (float(filtered_kmeans_cluster_df["Monetary"].min()), float(filtered_kmeans_cluster_df["Monetary"].max())), 
@@ -579,13 +583,13 @@ streamlit.subheader("Average of Recency, Frequency, and Monetary Values of the K
 col1, col2, col3 = streamlit.columns(3)
 
 with col1:
-    streamlit.metric("Average of Recency", f"{filtered_df1['Recency'].mean()}")
+    streamlit.metric("Average of Recency", filtered_df1["Recency"].mean())
 
 with col2:
-    streamlit.metric("Average of Frequency", f"{filtered_df1['Frequency'].mean()}")
+    streamlit.metric("Average of Frequency", filtered_df1["Frequency"].mean())
 
 with col3:
-    streamlit.metric("Average of Monetary", f"{filtered_df1['Monetary'].mean()}")
+    streamlit.metric("Average of Monetary", filtered_df1["Monetary"].mean())
 
 kmeans_fig3d_st = px.scatter_3d(filtered_df1, x = "Recency", y = "Frequency", z = "Monetary", color = filtered_df1["K-Means Cluster"],
                            title = "3D K-Means Clusters Visualization", size_max = 30, width = 1000, height = 680, opacity = 1.0)
@@ -795,7 +799,9 @@ from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.slider(
     "Which DBSCAN Cluster are you interested in?",
     min_value = scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["DBSCAN Cluster"].max(),
-    value = [scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(), scaled_RFM_Clusters_DF["DBSCAN Cluster"].max()])
+    value = [scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(), scaled_RFM_Clusters_DF["DBSCAN Cluster"].max()],
+    key = "dbscan_cluster_label_slider"
+    )
 
 filtered_dbscan_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["DBSCAN Cluster"] <= to_last_dbscan_cluster) & (from_first_dbscan_cluster <= scaled_RFM_Clusters_DF["DBSCAN Cluster"])]
 
@@ -803,7 +809,7 @@ filtered_dbscan_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["DBS
 # filter_recency = streamlit.checkbox("Filter by Recency")
 # if filter_recency:
 scaled_recency_range2 = streamlit.slider(
-    "Which value of Recency in days since the last purchase date are you interested in?",
+    "Which standardized value of Recency in days since December 9th, 2011 as the last purchase date are you interested in?",
     min_value = float(filtered_dbscan_cluster_df["Recency"].min()),
     max_value = float(filtered_dbscan_cluster_df["Recency"].max()),
     value = (float(filtered_dbscan_cluster_df["Recency"].min()), float(filtered_dbscan_cluster_df["Recency"].max())), 
@@ -814,7 +820,7 @@ scaled_recency_range2 = streamlit.slider(
 # filter_frequency = streamlit.checkbox("Filter by Frequency")
 # if filter_frequency:
 scaled_frequency_range2 = streamlit.slider(
-    "Which value of frequency in times of purchase are you interested in?",
+    "Which standardized value of Frequency in times of purchase are you interested in?",
     min_value = float(filtered_dbscan_cluster_df["Frequency"].min()),
     max_value = float(filtered_dbscan_cluster_df["Frequency"].max()),
     value = (float(filtered_dbscan_cluster_df["Frequency"].min()), float(filtered_dbscan_cluster_df["Frequency"].max())), 
@@ -825,7 +831,7 @@ scaled_frequency_range2 = streamlit.slider(
 # filter_monetary = streamlit.checkbox("Filter by Monetary")
 # if filter_monetary:
 scaled_monetary_range2 = streamlit.slider(
-    "Which value of monetary in sterling are you interested in?",
+    "Which standardized value of Monetary in sterling are you interested in?",
     min_value = float(filtered_dbscan_cluster_df["Monetary"].min()),
     max_value = float(filtered_dbscan_cluster_df["Monetary"].max()),
     value = (float(filtered_dbscan_cluster_df["Monetary"].min()), float(filtered_dbscan_cluster_df["Monetary"].max())), 
@@ -860,13 +866,13 @@ streamlit.subheader("Average of Recency, Frequency, and Monetary Values of the D
 col1, col2, col3 = streamlit.columns(3)
 
 with col1:
-    streamlit.metric("Average of Recency", f"{filtered_df2['Recency'].mean()}")
+    streamlit.metric("Average of Recency", filtered_df2["Recency"].mean())
 
 with col2:
-    streamlit.metric("Average of Frequency", f"{filtered_df2['Frequency'].mean()}")
+    streamlit.metric("Average of Frequency", filtered_df2["Frequency"].mean())
 
 with col3:
-    streamlit.metric("Average of Monetary", f"{filtered_df2['Monetary'].mean()}")
+    streamlit.metric("Average of Monetary", filtered_df2["Monetary"].mean())
 
 dbscan_fig3d_st = px.scatter_3d(filtered_df2, x = "Recency", y = "Frequency", z = "Monetary", color = filtered_df2["DBSCAN Cluster"], 
                            title = "3D DBSCAN Clusters Visualization", size_max = 30, width = 1000, height = 680, opacity = 1.0)
@@ -885,7 +891,7 @@ with col8:
     dbscan_monet_mean_pie = go.Figure(data = [go.Pie(
         labels = [f'Cluster {c}' if c != -1 else "Outliers" for c in mmdc_labels],
         values = dbscan_monet_avg,
-        textinfo = 'percent+label',
+        textinfo = 'label+percent',
         textposition = 'inside',
         hoverinfo = 'label+percent+value',
         hole = 0.4,
@@ -984,7 +990,9 @@ from_first_optics_cluster, to_last_optics_cluster = streamlit.slider(
     "Which OPTICS Cluster are you interested in?",
     min_value = scaled_RFM_Clusters_DF["OPTICS Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["OPTICS Cluster"].max(),
-    value = [scaled_RFM_Clusters_DF["OPTICS Cluster"].min(), scaled_RFM_Clusters_DF["OPTICS Cluster"].max()])
+    value = [scaled_RFM_Clusters_DF["OPTICS Cluster"].min(), scaled_RFM_Clusters_DF["OPTICS Cluster"].max()],
+    key = "optics_cluster_label_slider"
+    )
 
 filtered_optics_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["OPTICS Cluster"] <= to_last_optics_cluster) & (from_first_optics_cluster <= scaled_RFM_Clusters_DF["OPTICS Cluster"])]
 
@@ -992,7 +1000,7 @@ filtered_optics_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["OPT
 # filter_recency = streamlit.checkbox("Filter by Recency")
 # if filter_recency:
 scaled_recency_range3 = streamlit.slider(
-    "Which value of Recency in days since the last purchase date are you interested in?",
+    "Which standardized value of Recency in days since December 9th, 2011 as the last purchase date are you interested in?",
     min_value = float(filtered_optics_cluster_df["Recency"].min()),
     max_value = float(filtered_optics_cluster_df["Recency"].max()),
     value = (float(filtered_optics_cluster_df["Recency"].min()), float(filtered_optics_cluster_df["Recency"].max())), 
@@ -1003,7 +1011,7 @@ scaled_recency_range3 = streamlit.slider(
 # filter_frequency = streamlit.checkbox("Filter by Frequency")
 # if filter_frequency:
 scaled_frequency_range3 = streamlit.slider(
-    "Which value of frequency in times of purchase are you interested in?",
+    "Which standardized value of Frequency in times of purchase are you interested in?",
     min_value = float(filtered_optics_cluster_df["Frequency"].min()),
     max_value = float(filtered_optics_cluster_df["Frequency"].max()),
     value = (float(filtered_optics_cluster_df["Frequency"].min()), float(filtered_optics_cluster_df["Frequency"].max())), 
@@ -1014,7 +1022,7 @@ scaled_frequency_range3 = streamlit.slider(
 # filter_monetary = streamlit.checkbox("Filter by Monetary")
 # if filter_monetary:
 scaled_monetary_range3 = streamlit.slider(
-    "Which value of monetary in sterling are you interested in?",
+    "Which standardized value of Monetary in sterling are you interested in?",
     min_value = float(filtered_optics_cluster_df["Monetary"].min()),
     max_value = float(filtered_optics_cluster_df["Monetary"].max()),
     value = (float(filtered_optics_cluster_df["Monetary"].min()), float(filtered_optics_cluster_df["Monetary"].max())), 
@@ -1049,13 +1057,13 @@ streamlit.subheader("Average of Recency, Frequency, and Monetary Values of the O
 col1, col2, col3 = streamlit.columns(3)
 
 with col1:
-    streamlit.metric("Average of Recency", f"{filtered_df3['Recency'].mean()}")
+    streamlit.metric("Average of Recency", filtered_df3["Recency"].mean())
 
 with col2:
-    streamlit.metric("Average of Frequency", f"{filtered_df3['Frequency'].mean()}")
+    streamlit.metric("Average of Frequency", filtered_df3["Frequency"].mean())
 
 with col3:
-    streamlit.metric("Average of Monetary", f"{filtered_df3['Monetary'].mean()}")
+    streamlit.metric("Average of Monetary", filtered_df3["Monetary"].mean())
 
 optics_fig3d_st = px.scatter_3d(filtered_df3, x = "Recency", y = "Frequency", z = "Monetary", color = filtered_df3["OPTICS Cluster"], 
                            title = "3D OPTICS Clusters Visualization", size_max = 30, width = 1000, height = 680, opacity = 1.0)
@@ -1173,7 +1181,9 @@ from_first_ms_cluster, to_last_ms_cluster = streamlit.slider(
     "Which Mean Shift Cluster are you interested in?",
     min_value = scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["Mean Shift Cluster"].max(),
-    value = [scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(), scaled_RFM_Clusters_DF["Mean Shift Cluster"].max()])
+    value = [scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(), scaled_RFM_Clusters_DF["Mean Shift Cluster"].max()],
+    key = "mean_shift_cluster_label_slider"
+    )
 
 filtered_ms_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["Mean Shift Cluster"] <= to_last_ms_cluster) & (from_first_ms_cluster <= scaled_RFM_Clusters_DF["Mean Shift Cluster"])]
 
@@ -1181,7 +1191,7 @@ filtered_ms_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["Mean Sh
 # filter_recency = streamlit.checkbox("Filter by Recency")
 # if filter_recency:
 scaled_recency_range4 = streamlit.slider(
-    "Which value of Recency in days since the last purchase date are you interested in?",
+    "Which standardized value of Recency in days since December 9th, 2011 as the last purchase date are you interested in?",
     min_value = float(filtered_ms_cluster_df["Recency"].min()),
     max_value = float(filtered_ms_cluster_df["Recency"].max()),
     value = (float(filtered_ms_cluster_df["Recency"].min()), float(filtered_ms_cluster_df["Recency"].max())), 
@@ -1192,7 +1202,7 @@ scaled_recency_range4 = streamlit.slider(
 # filter_frequency = streamlit.checkbox("Filter by Frequency")
 # if filter_frequency:
 scaled_frequency_range4 = streamlit.slider(
-    "Which value of frequency in times of purchase are you interested in?",
+    "Which standardized value of Frequency in times of purchase are you interested in?",
     min_value = float(filtered_ms_cluster_df["Frequency"].min()),
     max_value = float(filtered_ms_cluster_df["Frequency"].max()),
     value = (float(filtered_ms_cluster_df["Frequency"].min()), float(filtered_ms_cluster_df["Frequency"].max())), 
@@ -1203,7 +1213,7 @@ scaled_frequency_range4 = streamlit.slider(
 # filter_monetary = streamlit.checkbox("Filter by Monetary")
 # if filter_monetary:
 scaled_monetary_range4 = streamlit.slider(
-    "Which value of monetary in sterling are you interested in?",
+    "Which standardized value of Monetary in sterling are you interested in?",
     min_value = float(filtered_ms_cluster_df["Monetary"].min()),
     max_value = float(filtered_ms_cluster_df["Monetary"].max()),
     value = (float(filtered_ms_cluster_df["Monetary"].min()), float(filtered_ms_cluster_df["Monetary"].max())), 
@@ -1238,13 +1248,13 @@ streamlit.subheader("Average of Recency, Frequency, and Monetary Values of the M
 col1, col2, col3 = streamlit.columns(3)
 
 with col1:
-    streamlit.metric("Average of Recency", f"{filtered_df4['Recency'].mean()}")
+    streamlit.metric("Average of Recency", filtered_df4["Recency"].mean())
 
 with col2:
-    streamlit.metric("Average of Frequency", f"{filtered_df4['Frequency'].mean()}")
+    streamlit.metric("Average of Frequency", filtered_df4['Frequency'].mean())
 
 with col3:
-    streamlit.metric("Average of Monetary", f"{filtered_df4['Monetary'].mean()}")
+    streamlit.metric("Average of Monetary", filtered_df4["Monetary"].mean())
 
 ms_fig3d_st = px.scatter_3d(filtered_df4, x = "Recency", y = "Frequency", z = "Monetary", color = filtered_df4["Mean Shift Cluster"], 
                            title = "3D Mean Shift Clusters Visualization", size_max = 30, width = 1000, height = 680, opacity = 1.0)
@@ -1359,7 +1369,7 @@ with col19:
 streamlit.divider()
 streamlit.header("Data Source: Online Retail Sales dataset obtained from Kaggle")
 OnlineRetailDF
-streamlit.write("The dataset consists of ", OnlineRetailDF.shape[0],"online transactions in the UK-based online retail and ", OnlineRetailDF.shape[1], "variables.")
+streamlit.write("The dataset consists of ", OnlineRetailDF.shape[0], "online transactions in the UK-based online retail and ", OnlineRetailDF.shape[1], "variables.")
 streamlit.divider()
 streamlit.header("The 3D dataset with Recency, Frequency, and Monetary variable after feature engineering on the original dataset")
 RFM_DF
