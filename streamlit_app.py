@@ -1367,7 +1367,7 @@ with col19:
 
 # streamlit run thesis_clustering_code.py
 streamlit.divider()
-streamlit.header("Data Source: Online Retail Sales dataset obtained from Kaggle")
+streamlit.header("Data Source: Online Retail dataset obtained from Kaggle")
 OnlineRetailDF
 streamlit.write("The dataset consists of ", OnlineRetailDF.shape[0], "online transactions in the UK-based online retail and ", OnlineRetailDF.shape[1], "variables.")
 streamlit.divider()
