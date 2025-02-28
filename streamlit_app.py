@@ -47,9 +47,9 @@ streamlit.set_page_config(
     page_title = "UK Online Retail Customer Dashboard"
 )
 
-# DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
-# OnlineRetailDF = pd.read_csv(DATA_FILENAME)
-OnlineRetailDF = pd.read_csv("Online Retail.csv")
+DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
+OnlineRetailDF = pd.read_csv(DATA_FILENAME)
+# OnlineRetailDF = pd.read_csv("Online Retail.csv")
 
 streamlit.title("UK-Based Online Retail Customer Dashboard")
 streamlit.write("Note: the sliders and the graphics use the standardized Recency, Frequency, and Monetary data.")
