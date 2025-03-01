@@ -552,7 +552,7 @@ if "kmeans_monet_slider" not in streamlit.session_state:
 # Place the reset sliders button on the top right of the four slider widgets
 col1, col2 = streamlit.columns([0.9, 0.1])
 with col2:  # Only use the right column for the reset sliders button
-    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the K-Means clustering algorithm section to default values", use_container_width = True, type = "primary"):
+    if streamlit.button("Reset", help = "Reset all sliders in the cluster results of the K-Means clustering algorithm section to default values", use_container_width = True, type = "primary"):
         streamlit.session_state.kmeans_cluster_label_slider = [
             scaled_RFM_Clusters_DF["K-Means Cluster"].min(),
             scaled_RFM_Clusters_DF["K-Means Cluster"].max()
@@ -872,7 +872,7 @@ if "dbscan_monet_slider" not in streamlit.session_state:
 # Place the reset sliders button on the top right of the four slider widgets
 col1, col2 = streamlit.columns([0.9, 0.1])
 with col2:  # Only use the right column for the reset sliders button
-    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the DBSCAN clustering algorithm section to default values", use_container_width = True, type = "primary"):
+    if streamlit.button("Reset", help = "Reset all sliders in the cluster results of the DBSCAN clustering algorithm section to default values", use_container_width = True, type = "primary"):
         streamlit.session_state.dbscan_cluster_label_slider = [
             scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(),
             scaled_RFM_Clusters_DF["DBSCAN Cluster"].max()
@@ -1114,7 +1114,7 @@ if "optics_monet_slider" not in streamlit.session_state:
 # Place the reset sliders button on the top right of the four slider widgets
 col1, col2 = streamlit.columns([0.9, 0.1])
 with col2:  # Only use the right column for the reset sliders button
-    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the OPTICS clustering algorithm section to default values", use_container_width = True, type = "primary"):
+    if streamlit.button("Reset", help = "Reset all sliders in the cluster results of the OPTICS clustering algorithm section to default values", use_container_width = True, type = "primary"):
         streamlit.session_state.optics_cluster_label_slider = [
             scaled_RFM_Clusters_DF["OPTICS Cluster"].min(),
             scaled_RFM_Clusters_DF["OPTICS Cluster"].max()
@@ -1356,7 +1356,7 @@ if "ms_monet_slider" not in streamlit.session_state:
 # Place the reset sliders button on the top right of the four slider widgets
 col1, col2 = streamlit.columns([0.9, 0.1])
 with col2:  # Only use the right column for the reset sliders button
-    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the Mean Shift clustering algorithm section to default values", use_container_width = True, type = "primary"):
+    if streamlit.button("Reset", help = "Reset all sliders in the cluster results of the Mean Shift clustering algorithm section to default values", use_container_width = True, type = "primary"):
         streamlit.session_state.ms_cluster_label_slider = [
             scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(),
             scaled_RFM_Clusters_DF["Mean Shift Cluster"].max()
