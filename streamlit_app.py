@@ -525,51 +525,51 @@ streamlit.divider()
 
 streamlit.header("K-Means Customer Segments", divider = "gray")
 
-if "kmeans_cluster_label_slider" not in st.session_state:
-    st.session_state.kmeans_cluster_label_slider = [
+if "kmeans_cluster_label_slider" not in streamlit.session_state:
+    streamlit.session_state.kmeans_cluster_label_slider = [
         scaled_RFM_Clusters_DF["K-Means Cluster"].min(),
         scaled_RFM_Clusters_DF["K-Means Cluster"].max()
     ]
 
-if "kmeans_recency_slider" not in st.session_state:
-    st.session_state.kmeans_recency_slider = (
+if "kmeans_recency_slider" not in streamlit.session_state:
+    streamlit.session_state.kmeans_recency_slider = (
         float(scaled_RFM_Clusters_DF["Recency"].min()),
         float(scaled_RFM_Clusters_DF["Recency"].max())
     )
 
-if "kmeans_freq_slider" not in st.session_state:
-    st.session_state.kmeans_freq_slider = (
+if "kmeans_freq_slider" not in streamlit.session_state:
+    streamlit.session_state.kmeans_freq_slider = (
         float(scaled_RFM_Clusters_DF["Frequency"].min()),
         float(scaled_RFM_Clusters_DF["Frequency"].max())
     )
 
-if "kmeans_monet_slider" not in st.session_state:
-    st.session_state.kmeans_monet_slider = (
+if "kmeans_monet_slider" not in streamlit.session_state:
+    streamlit.session_state.kmeans_monet_slider = (
         float(scaled_RFM_Clusters_DF["Monetary"].min()),
         float(scaled_RFM_Clusters_DF["Monetary"].max())
     )
 
 # Place the reset sliders button on the top right of the four slider widgets
-col1, col2 = st.columns([0.8, 0.2])
+col1, col2 = streamlit.columns([0.8, 0.2])
 with col2:  # Only use the right column for the reset sliders button
-    if st.button("↩ Reset", help = "Reset all sliders in the cluster results of the K-Means clustering algorithm section to default values"):
-        st.session_state.kmeans_cluster_label_slider = [
+    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the K-Means clustering algorithm section to default values"):
+        streamlit.session_state.kmeans_cluster_label_slider = [
             scaled_RFM_Clusters_DF["K-Means Cluster"].min(),
             scaled_RFM_Clusters_DF["K-Means Cluster"].max()
         ]
-        st.session_state.kmeans_recency_slider = (
+        streamlit.session_state.kmeans_recency_slider = (
             float(scaled_RFM_Clusters_DF["Recency"].min()),
             float(scaled_RFM_Clusters_DF["Recency"].max())
         )
-        st.session_state.kmeans_freq_slider = (
+        streamlit.session_state.kmeans_freq_slider = (
             float(scaled_RFM_Clusters_DF["Frequency"].min()),
             float(scaled_RFM_Clusters_DF["Frequency"].max())
         )
-        st.session_state.kmeans_monet_slider = (
+        streamlit.session_state.kmeans_monet_slider = (
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
-        st.rerun()  # Refresh app to apply reset
+        streamlit.rerun()  # Refresh app to apply reset
 
 from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.slider(
     "Which K-Means Cluster are you interested in?",
@@ -845,51 +845,51 @@ with col7:
 streamlit.divider()
 streamlit.header("DBSCAN Customer Segments", divider = "gray")
 
-if "dbscan_cluster_label_slider" not in st.session_state:
-    st.session_state.dbscan_cluster_label_slider = [
+if "dbscan_cluster_label_slider" not in streamlit.session_state:
+    streamlit.session_state.dbscan_cluster_label_slider = [
         scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(),
         scaled_RFM_Clusters_DF["DBSCAN Cluster"].max()
     ]
 
-if "dbscan_recency_slider" not in st.session_state:
-    st.session_state.dbscan_recency_slider = (
+if "dbscan_recency_slider" not in streamlit.session_state:
+    streamlit.session_state.dbscan_recency_slider = (
         float(scaled_RFM_Clusters_DF["Recency"].min()),
         float(scaled_RFM_Clusters_DF["Recency"].max())
     )
 
-if "dbscan_freq_slider" not in st.session_state:
-    st.session_state.dbscan_freq_slider = (
+if "dbscan_freq_slider" not in streamlit.session_state:
+    streamlit.session_state.dbscan_freq_slider = (
         float(scaled_RFM_Clusters_DF["Frequency"].min()),
         float(scaled_RFM_Clusters_DF["Frequency"].max())
     )
 
-if "dbscan_monet_slider" not in st.session_state:
-    st.session_state.dbscan_monet_slider = (
+if "dbscan_monet_slider" not in streamlit.session_state:
+    streamlit.session_state.dbscan_monet_slider = (
         float(scaled_RFM_Clusters_DF["Monetary"].min()),
         float(scaled_RFM_Clusters_DF["Monetary"].max())
     )
 
 # Place the reset sliders button on the top right of the four slider widgets
-col1, col2 = st.columns([0.8, 0.2])
+col1, col2 = streamlit.columns([0.8, 0.2])
 with col2:  # Only use the right column for the reset sliders button
-    if st.button("↩ Reset", help = "Reset all sliders in the cluster results of the DBSCAN clustering algorithm section to default values"):
-        st.session_state.dbscan_cluster_label_slider = [
+    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the DBSCAN clustering algorithm section to default values"):
+        streamlit.session_state.dbscan_cluster_label_slider = [
             scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(),
             scaled_RFM_Clusters_DF["DBSCAN Cluster"].max()
         ]
-        st.session_state.dbscan_recency_slider = (
+        streamlit.session_state.dbscan_recency_slider = (
             float(scaled_RFM_Clusters_DF["Recency"].min()),
             float(scaled_RFM_Clusters_DF["Recency"].max())
         )
-        st.session_state.dbscan_freq_slider = (
+        streamlit.session_state.dbscan_freq_slider = (
             float(scaled_RFM_Clusters_DF["Frequency"].min()),
             float(scaled_RFM_Clusters_DF["Frequency"].max())
         )
-        st.session_state.dbscan_monet_slider = (
+        streamlit.session_state.dbscan_monet_slider = (
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
-        st.rerun()  # Refresh app to apply reset
+        streamlit.rerun()  # Refresh app to apply reset
 
 from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.slider(
     "Which DBSCAN Cluster are you interested in?",
@@ -1087,51 +1087,51 @@ streamlit.divider()
 streamlit.header("OPTICS Customer Segments", divider = "gray")
 
 # Initialize session state for sliders if not already set
-if "optics_cluster_label_slider" not in st.session_state:
-    st.session_state.optics_cluster_label_slider = [
+if "optics_cluster_label_slider" not in streamlit.session_state:
+    streamlit.session_state.optics_cluster_label_slider = [
         scaled_RFM_Clusters_DF["OPTICS Cluster"].min(),
         scaled_RFM_Clusters_DF["OPTICS Cluster"].max()
     ]
 
-if "optics_recency_slider" not in st.session_state:
-    st.session_state.optics_recency_slider = (
+if "optics_recency_slider" not in streamlit.session_state:
+    streamlit.session_state.optics_recency_slider = (
         float(scaled_RFM_Clusters_DF["Recency"].min()),
         float(scaled_RFM_Clusters_DF["Recency"].max())
     )
 
-if "optics_freq_slider" not in st.session_state:
-    st.session_state.optics_freq_slider = (
+if "optics_freq_slider" not in streamlit.session_state:
+    streamlit.session_state.optics_freq_slider = (
         float(scaled_RFM_Clusters_DF["Frequency"].min()),
         float(scaled_RFM_Clusters_DF["Frequency"].max())
     )
 
-if "optics_monet_slider" not in st.session_state:
-    st.session_state.optics_monet_slider = (
+if "optics_monet_slider" not in streamlit.session_state:
+    streamlit.session_state.optics_monet_slider = (
         float(scaled_RFM_Clusters_DF["Monetary"].min()),
         float(scaled_RFM_Clusters_DF["Monetary"].max())
     )
 
 # Place the reset sliders button on the top right of the four slider widgets
-col1, col2 = st.columns([0.8, 0.2])
+col1, col2 = streamlit.columns([0.8, 0.2])
 with col2:  # Only use the right column for the reset sliders button
-    if st.button("↩ Reset", help = "Reset all sliders in the cluster results of the OPTICS clustering algorithm section to default values"):
-        st.session_state.optics_cluster_label_slider = [
+    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the OPTICS clustering algorithm section to default values"):
+        streamlit.session_state.optics_cluster_label_slider = [
             scaled_RFM_Clusters_DF["OPTICS Cluster"].min(),
             scaled_RFM_Clusters_DF["OPTICS Cluster"].max()
         ]
-        st.session_state.optics_recency_slider = (
+        streamlit.session_state.optics_recency_slider = (
             float(scaled_RFM_Clusters_DF["Recency"].min()),
             float(scaled_RFM_Clusters_DF["Recency"].max())
         )
-        st.session_state.optics_freq_slider = (
+        streamlit.session_state.optics_freq_slider = (
             float(scaled_RFM_Clusters_DF["Frequency"].min()),
             float(scaled_RFM_Clusters_DF["Frequency"].max())
         )
-        st.session_state.optics_monet_slider = (
+        streamlit.session_state.optics_monet_slider = (
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
-        st.rerun()  # Refresh app to apply reset
+        streamlit.rerun()  # Refresh app to apply reset
 
 from_first_optics_cluster, to_last_optics_cluster = streamlit.slider(
     "Which OPTICS Cluster are you interested in?",
@@ -1329,51 +1329,51 @@ streamlit.divider()
 streamlit.header("Mean Shift Customer Segments", divider = "gray")
 
 # Initialize session state for sliders if not already set
-if "ms_cluster_label_slider" not in st.session_state:
-    st.session_state.ms_cluster_label_slider = [
+if "ms_cluster_label_slider" not in streamlit.session_state:
+    streamlit.session_state.ms_cluster_label_slider = [
         scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(),
         scaled_RFM_Clusters_DF["Mean Shift Cluster"].max()
     ]
 
-if "ms_recency_slider" not in st.session_state:
-    st.session_state.ms_recency_slider = (
+if "ms_recency_slider" not in streamlit.session_state:
+    streamlit.session_state.ms_recency_slider = (
         float(scaled_RFM_Clusters_DF["Recency"].min()),
         float(scaled_RFM_Clusters_DF["Recency"].max())
     )
 
-if "ms_freq_slider" not in st.session_state:
-    st.session_state.ms_freq_slider = (
+if "ms_freq_slider" not in streamlit.session_state:
+    streamlit.session_state.ms_freq_slider = (
         float(scaled_RFM_Clusters_DF["Frequency"].min()),
         float(scaled_RFM_Clusters_DF["Frequency"].max())
     )
 
-if "ms_monet_slider" not in st.session_state:
-    st.session_state.ms_monet_slider = (
+if "ms_monet_slider" not in streamlit.session_state:
+    streamlit.session_state.ms_monet_slider = (
         float(scaled_RFM_Clusters_DF["Monetary"].min()),
         float(scaled_RFM_Clusters_DF["Monetary"].max())
     )
 
 # Place the reset sliders button on the top right of the four slider widgets
-col1, col2 = st.columns([0.8, 0.2])
+col1, col2 = streamlit.columns([0.8, 0.2])
 with col2:  # Only use the right column for the reset sliders button
-    if st.button("↩ Reset", help = "Reset all sliders in the cluster results of the Mean Shift clustering algorithm section to default values"):
-        st.session_state.ms_cluster_label_slider = [
+    if streamlit.button("↩ Reset", help = "Reset all sliders in the cluster results of the Mean Shift clustering algorithm section to default values"):
+        streamlit.session_state.ms_cluster_label_slider = [
             scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(),
             scaled_RFM_Clusters_DF["Mean Shift Cluster"].max()
         ]
-        st.session_state.ms_recency_slider = (
+        streamlit.session_state.ms_recency_slider = (
             float(scaled_RFM_Clusters_DF["Recency"].min()),
             float(scaled_RFM_Clusters_DF["Recency"].max())
         )
-        st.session_state.ms_freq_slider = (
+        streamlit.session_state.ms_freq_slider = (
             float(scaled_RFM_Clusters_DF["Frequency"].min()),
             float(scaled_RFM_Clusters_DF["Frequency"].max())
         )
-        st.session_state.ms_monet_slider = (
+        streamlit.session_state.ms_monet_slider = (
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
-        st.rerun()  # Refresh app to apply reset
+        streamlit.rerun()  # Refresh app to apply reset
 
 from_first_ms_cluster, to_last_ms_cluster = streamlit.slider(
     "Which Mean Shift Cluster are you interested in?",
