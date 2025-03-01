@@ -47,9 +47,15 @@ streamlit.set_page_config(
     page_title = "UK Online Retail Customer Dashboard"
 )
 
-DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
-OnlineRetailDF = pd.read_csv(DATA_FILENAME)
+# DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
+# OnlineRetailDF = pd.read_csv(DATA_FILENAME)
 # OnlineRetailDF = pd.read_csv("Online Retail.csv")
+
+@st.cache_data
+def load_df():
+    return pd.read_csv("data/Online Retail.csv")
+
+OnlineRetailDF = load_df()
 
 streamlit.title("UK-Based Online Retail Customer Dashboard")
 streamlit.write("Note: the sliders and the graphics use the standardized Recency, Frequency, and Monetary data.")
@@ -569,6 +575,9 @@ with col2:  # Only use the right column for the reset sliders button
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
+
+        # Toggle session state to force update before rerunning
+        streamlit.session_state.reset_kmeans = not streamlit.session_state.reset_kmeans
         streamlit.rerun()  # Refresh app to apply reset
 
 from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.slider(
@@ -608,6 +617,13 @@ scaled_monetary_range1 = streamlit.slider(
         value = streamlit.session_state.kmeans_monet_slider,
         key = "kmeans_monet_slider"
     )
+
+# Ensure session state is considered before filtering
+if streamlit.session_state.reset_kmeans:
+    from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.session_state.kmeans_cluster_label_slider
+    scaled_recency_range1 = streamlit.session_state.kmeans_recency_slider
+    scaled_frequency_range1 = streamlit.session_state.kmeans_freq_slider
+    scaled_monetary_range1 = streamlit.session_state.kmeans_monet_slider
 
 # Apply filters dynamically
 filtered_df1 = filtered_kmeans_cluster_df.copy()
@@ -889,6 +905,9 @@ with col2:  # Only use the right column for the reset sliders button
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
+
+        # Toggle session state to force update before rerunning
+        streamlit.session_state.reset_dbscan = not streamlit.session_state.reset_dbscan
         streamlit.rerun()  # Refresh app to apply reset
 
 from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.slider(
@@ -937,6 +956,13 @@ scaled_monetary_range2 = streamlit.slider(
     value = streamlit.session_state.dbscan_monet_slider,
     key = "dbscan_monet_slider"
 )
+
+# Ensure session state is considered before filtering
+if streamlit.session_state.reset_dbscan:
+    from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.session_state.dbscan_cluster_label_slider
+    scaled_recency_range2 = streamlit.session_state.dbscan_recency_slider
+    scaled_frequency_range2 = streamlit.session_state.dbscan_freq_slider
+    scaled_monetary_range2 = streamlit.session_state.dbscan_monet_slider
 
 # Apply filters dynamically
 filtered_df2 = filtered_dbscan_cluster_df.copy()
@@ -1131,6 +1157,9 @@ with col2:  # Only use the right column for the reset sliders button
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
+        
+        # Toggle session state to force update before rerunning
+        streamlit.session_state.reset_optics = not streamlit.session_state.reset_optics
         streamlit.rerun()  # Refresh app to apply reset
 
 from_first_optics_cluster, to_last_optics_cluster = streamlit.slider(
@@ -1179,6 +1208,13 @@ scaled_monetary_range3 = streamlit.slider(
     value = streamlit.session_state.optics_monet_slider,
     key = "optics_monet_slider"
 )
+
+# Ensure session state is considered before filtering
+if streamlit.session_state.reset_optics:
+    from_first_optics_cluster, to_last_optics_cluster = streamlit.session_state.optics_cluster_label_slider
+    scaled_recency_range3 = streamlit.session_state.optics_recency_slider
+    scaled_frequency_range3 = streamlit.session_state.optics_freq_slider
+    scaled_monetary_range3 = streamlit.session_state.optics_monet_slider
 
 # Apply filters dynamically
 filtered_df3 = filtered_optics_cluster_df.copy()
@@ -1373,6 +1409,9 @@ with col2:  # Only use the right column for the reset sliders button
             float(scaled_RFM_Clusters_DF["Monetary"].min()),
             float(scaled_RFM_Clusters_DF["Monetary"].max())
         )
+
+        # Toggle session state to force update before rerunning
+        streamlit.session_state.reset_ms = not streamlit.session_state.reset_ms
         streamlit.rerun()  # Refresh app to apply reset
 
 from_first_ms_cluster, to_last_ms_cluster = streamlit.slider(
@@ -1421,6 +1460,13 @@ scaled_monetary_range4 = streamlit.slider(
     value = streamlit.session_state.ms_monet_slider,
     key = "ms_monet_slider"
 )
+
+# Ensure session state is considered before filtering
+if streamlit.session_state.reset_ms:
+    from_first_ms_cluster, to_last_ms_cluster = streamlit.session_state.ms_cluster_label_slider
+    scaled_recency_range4 = streamlit.session_state.ms_recency_slider
+    scaled_frequency_range4 = streamlit.session_state.ms_freq_slider
+    scaled_monetary_range4 = streamlit.session_state.ms_monet_slider
 
 # Apply filters dynamically
 filtered_df4 = filtered_ms_cluster_df.copy()
