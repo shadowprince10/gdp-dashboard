@@ -618,6 +618,9 @@ scaled_monetary_range1 = streamlit.slider(
         key = "kmeans_monet_slider"
     )
 
+if "reset_kmeans" not in streamlit.session_state:
+    streamlit.session_state.reset_kmeans = False  # Initialize it
+
 # Ensure session state is considered before filtering
 if streamlit.session_state.reset_kmeans:
     from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.session_state.kmeans_cluster_label_slider
@@ -957,6 +960,9 @@ scaled_monetary_range2 = streamlit.slider(
     key = "dbscan_monet_slider"
 )
 
+if "reset_dbscan" not in streamlit.session_state:
+    streamlit.session_state.reset_dbscan = False  # Initialize it
+
 # Ensure session state is considered before filtering
 if streamlit.session_state.reset_dbscan:
     from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.session_state.dbscan_cluster_label_slider
@@ -1209,6 +1215,9 @@ scaled_monetary_range3 = streamlit.slider(
     key = "optics_monet_slider"
 )
 
+if "reset_optics" not in streamlit.session_state:
+    streamlit.session_state.reset_optics = False  # Initialize it
+
 # Ensure session state is considered before filtering
 if streamlit.session_state.reset_optics:
     from_first_optics_cluster, to_last_optics_cluster = streamlit.session_state.optics_cluster_label_slider
@@ -1460,6 +1469,9 @@ scaled_monetary_range4 = streamlit.slider(
     value = streamlit.session_state.ms_monet_slider,
     key = "ms_monet_slider"
 )
+
+if "reset_ms" not in streamlit.session_state:
+    streamlit.session_state.reset_ms = False  # Initialize it
 
 # Ensure session state is considered before filtering
 if streamlit.session_state.reset_ms:
