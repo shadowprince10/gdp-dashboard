@@ -576,7 +576,7 @@ from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.slider(
     min_value = scaled_RFM_Clusters_DF["K-Means Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["K-Means Cluster"].max(),
     # value = [scaled_RFM_Clusters_DF["K-Means Cluster"].min(), scaled_RFM_Clusters_DF["K-Means Cluster"].max()],
-    value = st.session_state.kmeans_cluster_label_slider,
+    value = streamlit.session_state.kmeans_cluster_label_slider,
     key = "kmeans_cluster_label_slider"
     )
 
@@ -587,7 +587,7 @@ scaled_recency_range1 = streamlit.slider(
         min_value = float(filtered_kmeans_cluster_df["Recency"].min()),
         max_value = float(filtered_kmeans_cluster_df["Recency"].max()),
         # value = (float(filtered_kmeans_cluster_df["Recency"].min()), float(filtered_kmeans_cluster_df["Recency"].max())),
-        value = st.session_state.kmeans_recency_slider,
+        value = streamlit.session_state.kmeans_recency_slider,
         key = "kmeans_recency_slider"
     )
 
@@ -596,7 +596,7 @@ scaled_frequency_range1 = streamlit.slider(
         min_value = float(filtered_kmeans_cluster_df["Frequency"].min()),
         max_value = float(filtered_kmeans_cluster_df["Frequency"].max()),
         # value = (float(filtered_kmeans_cluster_df["Frequency"].min()), float(filtered_kmeans_cluster_df["Frequency"].max())),
-        value = st.session_state.kmeans_freq_slider,
+        value = streamlit.session_state.kmeans_freq_slider,
         key = "kmeans_freq_slider"
     )
 
@@ -605,7 +605,7 @@ scaled_monetary_range1 = streamlit.slider(
         min_value = float(filtered_kmeans_cluster_df["Monetary"].min()),
         max_value = float(filtered_kmeans_cluster_df["Monetary"].max()),
         # value = (float(filtered_kmeans_cluster_df["Monetary"].min()), float(filtered_kmeans_cluster_df["Monetary"].max())),
-        value = st.session_state.kmeans_monet_slider,
+        value = streamlit.session_state.kmeans_monet_slider,
         key = "kmeans_monet_slider"
     )
 
@@ -896,7 +896,7 @@ from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.slider(
     min_value = scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["DBSCAN Cluster"].max(),
     # value = [scaled_RFM_Clusters_DF["DBSCAN Cluster"].min(), scaled_RFM_Clusters_DF["DBSCAN Cluster"].max()],
-    value = st.session_state.dbscan_cluster_label_slider,
+    value = streamlit.session_state.dbscan_cluster_label_slider,
     key = "dbscan_cluster_label_slider"
     )
 
@@ -910,7 +910,7 @@ scaled_recency_range2 = streamlit.slider(
     min_value = float(filtered_dbscan_cluster_df["Recency"].min()),
     max_value = float(filtered_dbscan_cluster_df["Recency"].max()),
     # value = (float(filtered_dbscan_cluster_df["Recency"].min()), float(filtered_dbscan_cluster_df["Recency"].max())), 
-    value = st.session_state.dbscan_recency_slider,
+    value = streamlit.session_state.dbscan_recency_slider,
     key = "dbscan_recency_slider"
 )
 
@@ -922,7 +922,7 @@ scaled_frequency_range2 = streamlit.slider(
     min_value = float(filtered_dbscan_cluster_df["Frequency"].min()),
     max_value = float(filtered_dbscan_cluster_df["Frequency"].max()),
     # value = (float(filtered_dbscan_cluster_df["Frequency"].min()), float(filtered_dbscan_cluster_df["Frequency"].max())), 
-    value = st.session_state.dbscan_freq_slider,
+    value = streamlit.session_state.dbscan_freq_slider,
     key = "dbscan_freq_slider"
 )
 
@@ -934,7 +934,7 @@ scaled_monetary_range2 = streamlit.slider(
     min_value = float(filtered_dbscan_cluster_df["Monetary"].min()),
     max_value = float(filtered_dbscan_cluster_df["Monetary"].max()),
     # value = (float(filtered_dbscan_cluster_df["Monetary"].min()), float(filtered_dbscan_cluster_df["Monetary"].max())), 
-    value = st.session_state.dbscan_monet_slider,
+    value = streamlit.session_state.dbscan_monet_slider,
     key = "dbscan_monet_slider"
 )
 
@@ -1138,7 +1138,7 @@ from_first_optics_cluster, to_last_optics_cluster = streamlit.slider(
     min_value = scaled_RFM_Clusters_DF["OPTICS Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["OPTICS Cluster"].max(),
     # value = [scaled_RFM_Clusters_DF["OPTICS Cluster"].min(), scaled_RFM_Clusters_DF["OPTICS Cluster"].max()],
-    value = st.session_state.optics_cluster_label_slider,
+    value = streamlit.session_state.optics_cluster_label_slider,
     key = "optics_cluster_label_slider"
     )
 
@@ -1152,7 +1152,7 @@ scaled_recency_range3 = streamlit.slider(
     min_value = float(filtered_optics_cluster_df["Recency"].min()),
     max_value = float(filtered_optics_cluster_df["Recency"].max()),
     # value = (float(filtered_optics_cluster_df["Recency"].min()), float(filtered_optics_cluster_df["Recency"].max())), 
-    value = st.session_state.optics_recency_slider,
+    value = streamlit.session_state.optics_recency_slider,
     key = "optics_recency_slider"
 )
 
@@ -1164,7 +1164,7 @@ scaled_frequency_range3 = streamlit.slider(
     min_value = float(filtered_optics_cluster_df["Frequency"].min()),
     max_value = float(filtered_optics_cluster_df["Frequency"].max()),
     # value = (float(filtered_optics_cluster_df["Frequency"].min()), float(filtered_optics_cluster_df["Frequency"].max())), 
-    value = st.session_state.optics_freq_slider,
+    value = streamlit.session_state.optics_freq_slider,
     key = "optics_freq_slider"
 )
 
@@ -1176,7 +1176,7 @@ scaled_monetary_range3 = streamlit.slider(
     min_value = float(filtered_optics_cluster_df["Monetary"].min()),
     max_value = float(filtered_optics_cluster_df["Monetary"].max()),
     # value = (float(filtered_optics_cluster_df["Monetary"].min()), float(filtered_optics_cluster_df["Monetary"].max())), 
-    value = st.session_state.optics_monet_slider,
+    value = streamlit.session_state.optics_monet_slider,
     key = "optics_monet_slider"
 )
 
@@ -1380,7 +1380,7 @@ from_first_ms_cluster, to_last_ms_cluster = streamlit.slider(
     min_value = scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(),
     max_value = scaled_RFM_Clusters_DF["Mean Shift Cluster"].max(),
     # value = [scaled_RFM_Clusters_DF["Mean Shift Cluster"].min(), scaled_RFM_Clusters_DF["Mean Shift Cluster"].max()],
-    value = st.session_state.ms_cluster_label_slider,
+    value = streamlit.session_state.ms_cluster_label_slider,
     key = "ms_cluster_label_slider"
     )
 
@@ -1394,7 +1394,7 @@ scaled_recency_range4 = streamlit.slider(
     min_value = float(filtered_ms_cluster_df["Recency"].min()),
     max_value = float(filtered_ms_cluster_df["Recency"].max()),
     # value = (float(filtered_ms_cluster_df["Recency"].min()), float(filtered_ms_cluster_df["Recency"].max())), 
-    value = st.session_state.ms_recency_slider,
+    value = streamlit.session_state.ms_recency_slider,
     key = "ms_recency_slider"
 )
 
@@ -1406,7 +1406,7 @@ scaled_frequency_range4 = streamlit.slider(
     min_value = float(filtered_ms_cluster_df["Frequency"].min()),
     max_value = float(filtered_ms_cluster_df["Frequency"].max()),
     # value = (float(filtered_ms_cluster_df["Frequency"].min()), float(filtered_ms_cluster_df["Frequency"].max())), 
-    value = st.session_state.ms_freq_slider,
+    value = streamlit.session_state.ms_freq_slider,
     key = "ms_freq_slider"
 )
 
@@ -1418,7 +1418,7 @@ scaled_monetary_range4 = streamlit.slider(
     min_value = float(filtered_ms_cluster_df["Monetary"].min()),
     max_value = float(filtered_ms_cluster_df["Monetary"].max()),
     # value = (float(filtered_ms_cluster_df["Monetary"].min()), float(filtered_ms_cluster_df["Monetary"].max())), 
-    value = st.session_state.ms_monet_slider,
+    value = streamlit.session_state.ms_monet_slider,
     key = "ms_monet_slider"
 )
 
