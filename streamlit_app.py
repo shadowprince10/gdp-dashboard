@@ -527,10 +527,6 @@ rmoc_labels = rmoc.index
 # Mean of OPTICS Scores
 optics_recency_avg = rmoc.values
 
-scaled_RFM_Clusters_DF2 = scaled_RFM_Clusters_DF.copy()
-scaled_RFM_Clusters_DF3 = scaled_RFM_Clusters_DF.copy()
-scaled_RFM_Clusters_DF4 = scaled_RFM_Clusters_DF.copy()
-
 streamlit.divider()
 
 streamlit.header("K-Means Customer Segments", divider = "gray")
@@ -593,7 +589,7 @@ from_first_kmeans_cluster, to_last_kmeans_cluster = streamlit.slider(
     key = "kmeans_cluster_label_slider"
     )
 
-filtered_kmeans_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["K-Means Cluster"] <= to_last_kmeans_cluster) & (from_first_kmeans_cluster <= scaled_RFM_Clusters_DF["K-Means Cluster"])]
+# filtered_kmeans_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["K-Means Cluster"] <= to_last_kmeans_cluster) & (from_first_kmeans_cluster <= scaled_RFM_Clusters_DF["K-Means Cluster"])]
 
 scaled_recency_range1 = streamlit.slider(
         "Which standardized value of Recency in days since December 9th, 2011 as the last purchase date are you interested in?",
@@ -623,22 +619,18 @@ scaled_monetary_range1 = streamlit.slider(
     )
 
 # Apply filters dynamically
-filtered_df1 = filtered_kmeans_cluster_df.copy()
+# filtered_df1 = filtered_kmeans_cluster_df.copy()
 
-filtered_df1 = filtered_df1[
-        (filtered_df1["Recency"] >= scaled_recency_range1[0]) &
-        (filtered_df1["Recency"] <= scaled_recency_range1[1])
-    ]
-
-filtered_df1 = filtered_df1[
-        (filtered_df1["Frequency"] >= scaled_frequency_range1[0]) &
-        (filtered_df1["Frequency"] <= scaled_frequency_range1[1])
-    ]
-
-filtered_df1 = filtered_df1[
-        (filtered_df1["Monetary"] >= scaled_monetary_range1[0]) &
-        (filtered_df1["Monetary"] <= scaled_monetary_range1[1])
-    ]
+filtered_df1 = scaled_RFM_Clusters_DF[
+    (scaled_RFM_Clusters_DF["K-Means Cluster"] >= streamlit.session_state.kmeans_cluster_label_slider[0]) &
+    (scaled_RFM_Clusters_DF["K-Means Cluster"] <= streamlit.session_state.kmeans_cluster_label_slider[1]) &
+    (scaled_RFM_Clusters_DF["Recency"] >= streamlit.session_state.kmeans_recency_slider[0]) &
+    (scaled_RFM_Clusters_DF["Recency"] <= streamlit.session_state.kmeans_recency_slider[1]) &
+    (scaled_RFM_Clusters_DF["Frequency"] >= streamlit.session_state.kmeans_freq_slider[0]) &
+    (scaled_RFM_Clusters_DF["Frequency"] <= streamlit.session_state.kmeans_freq_slider[1]) &
+    (scaled_RFM_Clusters_DF["Monetary"] >= streamlit.session_state.kmeans_monet_slider[0]) &
+    (scaled_RFM_Clusters_DF["Monetary"] <= streamlit.session_state.kmeans_monet_slider[1])
+]
 
 streamlit.subheader("Average of Recency, Frequency, and Monetary Values of the K-Means Cluster(s)")
 
@@ -914,7 +906,7 @@ from_first_dbscan_cluster, to_last_dbscan_cluster = streamlit.slider(
     key = "dbscan_cluster_label_slider"
     )
 
-filtered_dbscan_cluster_df = scaled_RFM_Clusters_DF2[(scaled_RFM_Clusters_DF2["DBSCAN Cluster"] <= to_last_dbscan_cluster) & (from_first_dbscan_cluster <= scaled_RFM_Clusters_DF2["DBSCAN Cluster"])]
+# filtered_dbscan_cluster_df = scaled_RFM_Clusters_DF2[(scaled_RFM_Clusters_DF2["DBSCAN Cluster"] <= to_last_dbscan_cluster) & (from_first_dbscan_cluster <= scaled_RFM_Clusters_DF2["DBSCAN Cluster"])]
 
 # Checkbox for Recency
 # filter_recency = streamlit.checkbox("Filter by Recency")
@@ -953,24 +945,17 @@ scaled_monetary_range2 = streamlit.slider(
 )
 
 # Apply filters dynamically
-filtered_df2 = filtered_dbscan_cluster_df.copy()
+# filtered_df2 = filtered_dbscan_cluster_df.copy()
 
-# if filter_recency:
-filtered_df2 = filtered_df2[
-    (filtered_df2["Recency"] >= scaled_recency_range2[0]) &
-    (filtered_df2["Recency"] <= scaled_recency_range2[1])
-]
-
-# if filter_frequency:
-filtered_df2 = filtered_df2[
-    (filtered_df2["Frequency"] >= scaled_frequency_range2[0]) &
-    (filtered_df2["Frequency"] <= scaled_frequency_range2[1])
-]
-
-# if filter_monetary:
-filtered_df2 = filtered_df2[
-    (filtered_df2["Monetary"] >= scaled_monetary_range2[0]) &
-    (filtered_df2["Monetary"] <= scaled_monetary_range2[1])
+filtered_df2 = scaled_RFM_Clusters_DF[
+    (scaled_RFM_Clusters_DF["DBSCAN Cluster"] >= streamlit.session_state.dbscan_cluster_label_slider[0]) &
+    (scaled_RFM_Clusters_DF["DBSCAN Cluster"] <= streamlit.session_state.dbscan_cluster_label_slider[1]) &
+    (scaled_RFM_Clusters_DF["Recency"] >= streamlit.session_state.dbscan_recency_slider[0]) &
+    (scaled_RFM_Clusters_DF["Recency"] <= streamlit.session_state.dbscan_recency_slider[1]) &
+    (scaled_RFM_Clusters_DF["Frequency"] >= streamlit.session_state.dbscan_freq_slider[0]) &
+    (scaled_RFM_Clusters_DF["Frequency"] <= streamlit.session_state.dbscan_freq_slider[1]) &
+    (scaled_RFM_Clusters_DF["Monetary"] >= streamlit.session_state.dbscan_monet_slider[0]) &
+    (scaled_RFM_Clusters_DF["Monetary"] <= streamlit.session_state.dbscan_monet_slider[1])
 ]
 
 # Display the totals side by side
@@ -1157,7 +1142,7 @@ from_first_optics_cluster, to_last_optics_cluster = streamlit.slider(
     key = "optics_cluster_label_slider"
     )
 
-filtered_optics_cluster_df = scaled_RFM_Clusters_DF3[(scaled_RFM_Clusters_DF3["OPTICS Cluster"] <= to_last_optics_cluster) & (from_first_optics_cluster <= scaled_RFM_Clusters_DF3["OPTICS Cluster"])]
+# filtered_optics_cluster_df = scaled_RFM_Clusters_DF3[(scaled_RFM_Clusters_DF3["OPTICS Cluster"] <= to_last_optics_cluster) & (from_first_optics_cluster <= scaled_RFM_Clusters_DF3["OPTICS Cluster"])]
 
 # Checkbox for Recency
 # filter_recency = streamlit.checkbox("Filter by Recency")
@@ -1196,25 +1181,37 @@ scaled_monetary_range3 = streamlit.slider(
 )
 
 # Apply filters dynamically
-filtered_df3 = filtered_optics_cluster_df.copy()
+# filtered_df3 = filtered_optics_cluster_df.copy()
 
 # if filter_recency:
-filtered_df3 = filtered_df3[
-    (filtered_df3["Recency"] >= scaled_recency_range3[0]) &
-    (filtered_df3["Recency"] <= scaled_recency_range3[1])
-]
+# filtered_df3 = filtered_df3[
+#     (filtered_df3["Recency"] >= scaled_recency_range3[0]) &
+#     (filtered_df3["Recency"] <= scaled_recency_range3[1])
+# ]
 
 # if filter_frequency:
-filtered_df3 = filtered_df3[
-    (filtered_df3["Frequency"] >= scaled_frequency_range3[0]) &
-    (filtered_df3["Frequency"] <= scaled_frequency_range3[1])
-]
+# filtered_df3 = filtered_df3[
+#     (filtered_df3["Frequency"] >= scaled_frequency_range3[0]) &
+#     (filtered_df3["Frequency"] <= scaled_frequency_range3[1])
+# ]
 
 # if filter_monetary:
-filtered_df3 = filtered_df3[
-    (filtered_df3["Monetary"] >= scaled_monetary_range3[0]) &
-    (filtered_df3["Monetary"] <= scaled_monetary_range3[1])
+# filtered_df3 = filtered_df3[
+#     (filtered_df3["Monetary"] >= scaled_monetary_range3[0]) &
+#     (filtered_df3["Monetary"] <= scaled_monetary_range3[1])
+# ]
+
+filtered_df3 = scaled_RFM_Clusters_DF[
+    (scaled_RFM_Clusters_DF["OPTICS Cluster"] >= streamlit.session_state.optics_cluster_label_slider[0]) &
+    (scaled_RFM_Clusters_DF["OPTICS Cluster"] <= streamlit.session_state.optics_cluster_label_slider[1]) &
+    (scaled_RFM_Clusters_DF["Recency"] >= streamlit.session_state.optics_recency_slider[0]) &
+    (scaled_RFM_Clusters_DF["Recency"] <= streamlit.session_state.optics_recency_slider[1]) &
+    (scaled_RFM_Clusters_DF["Frequency"] >= streamlit.session_state.optics_freq_slider[0]) &
+    (scaled_RFM_Clusters_DF["Frequency"] <= streamlit.session_state.optics_freq_slider[1]) &
+    (scaled_RFM_Clusters_DF["Monetary"] >= streamlit.session_state.optics_monet_slider[0]) &
+    (scaled_RFM_Clusters_DF["Monetary"] <= streamlit.session_state.optics_monet_slider[1])
 ]
+
 
 # Display the totals side by side
 streamlit.subheader("Average of Recency, Frequency, and Monetary Values of the OPTICS Cluster and/or Outliers")
@@ -1400,7 +1397,7 @@ from_first_ms_cluster, to_last_ms_cluster = streamlit.slider(
     key = "ms_cluster_label_slider"
     )
 
-filtered_ms_cluster_df = scaled_RFM_Clusters_DF4[(scaled_RFM_Clusters_DF4["Mean Shift Cluster"] <= to_last_ms_cluster) & (from_first_ms_cluster <= scaled_RFM_Clusters_DF4["Mean Shift Cluster"])]
+# filtered_ms_cluster_df = scaled_RFM_Clusters_DF[(scaled_RFM_Clusters_DF["Mean Shift Cluster"] <= to_last_ms_cluster) & (from_first_ms_cluster <= scaled_RFM_Clusters_DF["Mean Shift Cluster"])]
 
 # Checkbox for Recency
 # filter_recency = streamlit.checkbox("Filter by Recency")
@@ -1439,24 +1436,17 @@ scaled_monetary_range4 = streamlit.slider(
 )
 
 # Apply filters dynamically
-filtered_df4 = filtered_ms_cluster_df.copy()
+# filtered_df4 = filtered_ms_cluster_df.copy()
 
-# if filter_recency:
-filtered_df4 = filtered_df4[
-    (filtered_df4["Recency"] >= scaled_recency_range4[0]) &
-    (filtered_df4["Recency"] <= scaled_recency_range4[1])
-]
-
-# if filter_frequency:
-filtered_df4 = filtered_df4[
-    (filtered_df4["Frequency"] >= scaled_frequency_range4[0]) &
-    (filtered_df4["Frequency"] <= scaled_frequency_range4[1])
-]
-
-# if filter_monetary:
-filtered_df4 = filtered_df4[
-    (filtered_df4["Monetary"] >= scaled_monetary_range4[0]) &
-    (filtered_df4["Monetary"] <= scaled_monetary_range4[1])
+filtered_df4 = scaled_RFM_Clusters_DF[
+    (scaled_RFM_Clusters_DF["Mean Shift Cluster"] >= streamlit.session_state.ms_cluster_label_slider[0]) &
+    (scaled_RFM_Clusters_DF["Mean Shift Cluster"] <= streamlit.session_state.ms_cluster_label_slider[1]) &
+    (scaled_RFM_Clusters_DF["Recency"] >= streamlit.session_state.ms_recency_slider[0]) &
+    (scaled_RFM_Clusters_DF["Recency"] <= streamlit.session_state.ms_recency_slider[1]) &
+    (scaled_RFM_Clusters_DF["Frequency"] >= streamlit.session_state.ms_freq_slider[0]) &
+    (scaled_RFM_Clusters_DF["Frequency"] <= streamlit.session_state.ms_freq_slider[1]) &
+    (scaled_RFM_Clusters_DF["Monetary"] >= streamlit.session_state.ms_monet_slider[0]) &
+    (scaled_RFM_Clusters_DF["Monetary"] <= streamlit.session_state.ms_monet_slider[1])
 ]
 
 # Display the totals side by side
