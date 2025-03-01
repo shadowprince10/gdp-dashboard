@@ -51,7 +51,7 @@ streamlit.set_page_config(
 # OnlineRetailDF = pd.read_csv(DATA_FILENAME)
 # OnlineRetailDF = pd.read_csv("Online Retail.csv")
 
-@st.cache_data
+@streamlit.cache_data
 def load_df():
     return pd.read_csv("data/Online Retail.csv")
 
