@@ -47,13 +47,8 @@ streamlit.set_page_config(
     page_title = "UK Online Retail Customer Dashboard"
 )
 
-@st.cache_data
 DATA_FILENAME = Path(__file__).parent/'data/Online Retail.csv'
-
-def load_df():
-    return pd.read_csv(DATA_FILENAME)
-
-OnlineRetailDF = load_df()
+OnlineRetailDF = pd.read_csv(DATA_FILENAME)
 # OnlineRetailDF = pd.read_csv("Online Retail.csv")
 
 streamlit.title("UK-Based Online Retail Customer Dashboard")
